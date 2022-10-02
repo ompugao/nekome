@@ -64,7 +64,8 @@ func createUserInfoLayout(u *twitter.UserObj, i, w int) string {
 		)
 	}
 
-	return header + "\n"
+	//return header + "\n"
+	return header
 }
 
 // createPollLayout : レイアウト済みの投票文字列を作成
@@ -150,19 +151,21 @@ func createTweetDetailLayout(tw *twitter.TweetObj) string {
 		)
 	}
 
-	if metrics != "" {
-		metrics = "\n" + metrics
-	}
+	// if metrics != "" {
+	// 	metrics = "\n" + metrics
+	// }
 
+	return metrics
+}
+
+func createTweetInfoLayout(tw *twitter.TweetObj) string {
 	// 投稿日時・投稿元クライアント
 	date := convertDateString(tw.CreatedAt)
 	return fmt.Sprintf(
-		"[%s]%s | via %s[-:-:-]%s",
+		"[%s]%s | via %s[-:-:-]",
 		shared.conf.Style.Tweet.Detail,
 		date,
-		tw.Source,
-		metrics,
-	)
+		tw.Source) + "\n"
 }
 
 // createTweetTextLayout : レイアウト済みのツイート文字列を作成
@@ -241,8 +244,8 @@ func highlightHashtags(text string, entities *twitter.EntitiesObj) string {
 
 // createTweetLayout : レイアウト済みのツイート文字列を作成
 func createTweetLayout(c *twitter.TweetDictionary, i, w int) string {
-	return createUserInfoLayout(c.Author, i, w) +
+	return createUserInfoLayout(c.Author, i, w) + createTweetInfoLayout(&c.Tweet) + 
 		createTweetTextLayout(&c.Tweet) +
-		createPollLayout(c.AttachmentPolls) +
+		createPollLayout(c.AttachmentPolls) + 
 		createTweetDetailLayout(&c.Tweet)
 }

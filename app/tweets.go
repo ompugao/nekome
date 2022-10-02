@@ -206,10 +206,10 @@ func (t *tweets) draw(cursorPos int) {
 		}
 
 		// 末尾のツイートでないならセパレータを挿入
-		lastIndex := t.GetTweetsCount() - 1
-		if i < lastIndex {
-			fmt.Fprintln(t.view, createSeparator("─", width))
-		}
+		// lastIndex := t.GetTweetsCount() - 1
+		// if i < lastIndex {
+		// 	fmt.Fprintln(t.view, createSeparator("─", width))
+		// }
 	}
 
 	t.scrollToTweet(cursorPos)
