@@ -165,7 +165,7 @@ func createTweetInfoLayout(tw *twitter.TweetObj) string {
 		"[%s]%s | via %s[-:-:-]",
 		shared.conf.Style.Tweet.Detail,
 		date,
-		tw.Source) + "\n"
+		tw.Source)
 }
 
 // createTweetTextLayout : レイアウト済みのツイート文字列を作成
@@ -244,8 +244,7 @@ func highlightHashtags(text string, entities *twitter.EntitiesObj) string {
 
 // createTweetLayout : レイアウト済みのツイート文字列を作成
 func createTweetLayout(c *twitter.TweetDictionary, i, w int) string {
-	return createUserInfoLayout(c.Author, i, w) + createTweetInfoLayout(&c.Tweet) + 
+	return createUserInfoLayout(c.Author, i, w) + createTweetDetailLayout(&c.Tweet) + " " + createTweetInfoLayout(&c.Tweet)  + "\n" +
 		createTweetTextLayout(&c.Tweet) +
-		createPollLayout(c.AttachmentPolls) + 
-		createTweetDetailLayout(&c.Tweet)
+		createPollLayout(c.AttachmentPolls) 
 }
